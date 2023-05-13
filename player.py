@@ -37,7 +37,7 @@ class Player:
     def bankrupt(self) -> None:
         print(f"{self} is bankrupt!")
         for property in self.properties:
-            property.owner = None
+            property.owned = None
         self.properties = []
         self.money = 0
         self.is_bankrupt = True

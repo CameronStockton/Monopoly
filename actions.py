@@ -1,5 +1,9 @@
 #roll dice, move character (include a "to" option for stuff like "go directly to jail")
 #pay rent, give money, buy property, end turn, pass go
+from properties import Property, Station, Utility
+from player import Player
+import random
+
 
 def pay_rent_prop(property: Property, player: Player) -> None:
     has_monopoly = property.has_monopoly(property.owned)
@@ -39,7 +43,7 @@ def on_property(property: Property, player: Player) -> None:
     prop_owned = property.is_owned()
     owner = property.get_owner()
     if prop_owned and owner != player:
-        print(f"You landed on {owner}'s property.")
+        print(f"You landed on {owner}'s {property}.")
         has_monopoly = property.has_monopoly(owner)
         if (not property.is_mortgaged()) and (not owner.in_jail):
             print(f"You must pay {owner} rent! The rent is {property.get_rent(has_monopoly)}.")
@@ -65,7 +69,7 @@ def on_station(station: Station, player: Player) -> None:
     stat_owned = station.is_owned()
     owner = station.get_owner()
     if stat_owned and owner != player:
-        print(f"You landed on {owner}'s railroad.")
+        print(f"You landed on {owner}'s {station}.")
         num_stat_owned = len(station.get_player_pairs(owner))
         if (not station.is_mortgaged()) and (not owner.in_jail):
             print(f"You must pay {owner} rent! The rent is {station.get_rent(num_stat_owned)}.")
@@ -90,7 +94,7 @@ def on_util(util: Utility, player: Player) -> None:
     util_owned = util.is_owned()
     owner = util.get_owner()
     if util_owned and owner != player:
-        print(f"You landed on {owner}'s railroad.")
+        print(f"You landed on {owner}'s {util}.")
         num_util_owned = len(util.get_player_pairs(owner))
         if (not util.is_mortgaged()) and (not owner.in_jail):
             print(f"You must pay {owner} rent! The rent is {util.get_rent(num_util_owned)}.")
@@ -103,7 +107,6 @@ def on_util(util: Utility, player: Player) -> None:
         print(f'{util} is unowned. Would you like to buy it?')
         buy = input('Type Y and press Enter to buy. To decline, type N and press Enter')
         if buy == 'Y':
-            print(f'{player} just bought {util}!')
             util.buy(player)
         else:
             print(f'You have chosen not to purchase this Utility. Thanks for staying at {util}.')
@@ -114,6 +117,7 @@ def move(player: Player) -> bool:
        Return True if doubles were rolled, False if not"""
     curr_pos = player.position
     dice1, dice2 = random.randint(1, 6), random.randint(1, 6)
+    print(f'{player} has rolled a {dice1} and {dice2}')
     new_pos = (curr_pos + dice1 + dice2) % 40
     player.set_pos(new_pos)
     if dice1 == dice2:

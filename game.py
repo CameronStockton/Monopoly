@@ -17,6 +17,7 @@ for i in range(num_players):
 #Actual Game Loop
 game_over = False
 while not game_over:
+    print("================================================================")
     for player in players:
         end_turn = False
         while not end_turn:

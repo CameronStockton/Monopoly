@@ -65,7 +65,7 @@ class Property:
     
     def add_property(self, player: Player) -> None:
         player.properties.append(self)
-        print(f"You just bought {self}")
+        print(f"{player} just bought {self}")
 
     def buy(self, player: Player) -> None:
         """Sets the new owner of the card based on player buying"""
@@ -185,7 +185,7 @@ class Station:
     
     def add_station(self, player: Player) -> None:
         player.properties.append(self)
-        print(f"You just bought {self}")
+        print(f"{player} just bought {self}")
 
     def buy(self, player: Player) -> None:
         """Sets the new owner of the card based on player buying"""
@@ -284,7 +284,7 @@ class Utility:
     
     def add_util(self, player: Player) -> None:
         player.properties.append(self)
-        print(f"You just bought {self}")
+        print(f"{player} just bought {self}")
 
     def buy(self, player: Player) -> None:
         """Sets the new owner of the card based on player buying"""
@@ -320,7 +320,7 @@ class Utility:
         """Returns the value of rent need to be paid if landed on"""
         #Re-roll dice
         dice1, dice2 = random.randint(1, 6), random.randint(1, 6)
-
+        print(f'You rolled a {dice1} and {dice2}.')
         return (self.rent[utilities_owned-1] * (dice1+dice2))
     
     def get_player_pairs(self, player: Player) -> Optional[List]:
