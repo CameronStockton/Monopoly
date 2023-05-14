@@ -2,7 +2,7 @@ from board import board
 from properties import Property, Station, Utility
 import random
 
-#Test moving around board
+"""#Test moving around board
 pos = 0
 print(f'You are currently on {board[pos]}')
 i = 0
@@ -19,4 +19,7 @@ while i < 10:
         print('This is a utility!')
     else:
         print(f'This is the {board[pos]} square.')
-    i += 1
+    i += 1"""
+
+test = ["Player 1", "Player 2"]
+print(f"Would you like to propose a Trade with {test}")

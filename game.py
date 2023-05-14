@@ -2,7 +2,7 @@
 from properties import Property, Station, Utility
 from player import Player
 from board import board, pos_prop, pos_stat, pos_util
-from actions import pay_rent_prop, pay_rent_stat, pay_rent_util, on_property, on_station, on_util, move, on_go, on_inctax, on_luxtax, on_freepark, on_gojail, on_justvisit
+from actions import on_property, on_station, on_util, move, on_go, on_inctax, on_luxtax, on_freepark, on_gojail, on_justvisit, propose_trade
 import random
 
 
@@ -104,6 +104,18 @@ while not game_over:
                     else:
                         player.night_in_jail()
                         end_turn = True
+
+        #In this indent, we will prompt a player to trade. If not, their turn will end
+        trade_players = [str(trade_player) for trade_player in players if trade_player != player]
+        trade_bool = input(f"Would you like to propose a Trade with {trade_players}? Type Y for Yes, N for No.")
+        if trade_bool == "Y":
+            trade_player_str = input(f"Which player would you like to propose a trade?: {trade_players}")
+            #Need to extract Player class from the provided matching name
+            trade_player = [trade_player for trade_player in players if str(trade_player) == trade_player_str][0]
+            #PROPOSE TRADE
+            propose_trade(player, trade_player)
+        else:
+            print(f"{player} has decided not to trade with anyone.")
 
         print(f"{player} has ${player.money}!")
 

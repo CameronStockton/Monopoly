@@ -153,3 +153,16 @@ def on_gojail(player: Player) -> None:
     """When moving onto Go To Jail, you go directly to jail. You also do not collect money from Go."""
     player.send_to_jail()
     player.set_pos(10)
+
+def propose_trade(ask_player: Player, ans_player: Player) -> None:
+    """This is the function for when a player wants to trade with another. It takes in both the player
+    proposing the trade, and the player who is offered the trade.
+    
+    We should list each Player's properties and then have the asking player pick properties and/or money.
+    Then we will prompt the answering player whether they accept or not. If the player accepts, we will make
+    the transfer of properties/funds in this function"""
+    ask_player_prop_str = [str(prop) for prop in ask_player.properties]
+    ans_player_prop_str = [str(prop) for prop in ans_player.properties]
+    print(f"Here are {ask_player}'s properties: {ask_player_prop_str}")
+    print(f"Here are {ans_player}'s properties: {ans_player_prop_str}")
+    
