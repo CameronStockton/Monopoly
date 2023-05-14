@@ -53,7 +53,7 @@ def on_property(property: Property, player: Player) -> None:
     elif prop_owned and owner == player:
         print('You own this property! Enjoy your stay.')
     else:
-        print(f'{property} is unowned. Would you like to buy it?')
+        print(f'{property} is unowned. Would you like to buy it for {property.cost}?')
         #Takes input from player. I think if we want to make AI to play this has to be changed
         buy = input('Type Y and press Enter to buy. To decline, type N and press Enter')
         if buy == 'Y':
@@ -78,7 +78,7 @@ def on_station(station: Station, player: Player) -> None:
     elif stat_owned and owner == player:
         print('You own this railroad! Enjoy your stay.')
     else:
-        print(f'{station} is unowned. Would you like to buy it?')
+        print(f'{station} is unowned. Would you like to buy it for {station.cost}?')
         buy = input('Type Y and press Enter to buy. To decline, type N and press Enter')
         if buy == 'Y':
             station.buy(player)
@@ -102,7 +102,7 @@ def on_util(util: Utility, player: Player) -> None:
     elif util_owned and owner == player:
         print('You own this Utility!')
     else:
-        print(f'{util} is unowned. Would you like to buy it?')
+        print(f'{util} is unowned. Would you like to buy it for {util.cost}?')
         buy = input('Type Y and press Enter to buy. To decline, type N and press Enter')
         if buy == 'Y':
             util.buy(player)
@@ -148,7 +148,7 @@ def on_freepark(player: Player) -> None:
 def on_justvisit(player: Player) -> None:
     """Just visiting. Not in Jail"""
     print(f"{player} is visiting Jail!")
-    
+
 def on_gojail(player: Player) -> None:
     """When moving onto Go To Jail, you go directly to jail. You also do not collect money from Go."""
     player.send_to_jail()

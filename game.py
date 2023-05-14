@@ -73,38 +73,39 @@ while not game_over:
                     #Are there any other options we should catch?
                     print(f'You landed on {board[player.position]}. Unfortunately, I have not coded this part yet!')
                     end_turn = True
+
+                #After a players turn, lets first check if they are bankrupt to end their turn.
+                #Then we check to see if they rolled doubles, if they did not then we end their turn
+                if player_move:
+                    end_turn = False
+
+                if player.is_bankrupt:
+                    end_turn = True
+        else:
+            #This is what happens when the player is in jail
+            if player.time_jail == 3:
+                player.get_out_jail()
+                end_turn = False
             else:
-                #This is what happens when the player is in jail
-                if player.time_jail == 3:
+                print(f"{player} is in Jail!")
+                roll_or_fine = input("Type P to pay the fine, type anything to Roll then press Enter.")
+                if roll_or_fine == "P":
+                    print(f"{player} has paid the fine.")
                     player.get_out_jail()
+                    player.money -= 75
                     end_turn = False
                 else:
-                    print(f"{player} is in Jail!")
-                    roll_or_fine = input("Type P to pay the fine, type anything to Roll then press Enter.")
-                    if roll_or_fine == "P":
-                        print(f"{player} has paid the fine.")
+                    dice1, dice2 = random.randint(1, 6), random.randint(1, 6)
+                    print(f"{player} has rolled a {dice1} and {dice2}")
+                    if dice1 == dice2:
+                        print(f"{player} rolled doubles! They get out of jail")
                         player.get_out_jail()
-                        player.money -= 75
                         end_turn = False
                     else:
-                        dice1, dice2 = random.randint(1, 6), random.randint(1, 6)
-                        print(f"{player} has rolled a {dice1} and {dice2}")
-                        if dice1 == dice2:
-                            print(f"{player} rolled doubles! They get out of jail")
-                            player.get_out_jail()
-                            end_turn = False
-                        else:
-                            player.night_in_jail()
-                            end_turn = True
+                        player.night_in_jail()
+                        end_turn = True
 
-            print(f"{player} has ${player.money}!")
-            #After a players turn, lets first check if they are bankrupt to end their turn.
-            #Then we check to see if they rolled doubles, if they did not then we end their turn
-            if player_move:
-                end_turn = False
-
-            if player.is_bankrupt:
-                end_turn = True
+        print(f"{player} has ${player.money}!")
 
     #After every player has their turn, the game needs to check if anyone is bankrupt, then it checks
     #if the game is over
