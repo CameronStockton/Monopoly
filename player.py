@@ -15,6 +15,7 @@ class Player:
     is_bankrupt: status of player. If the player is bankrupt at the end of the turn
                  they will be removed from the game
     in_jail: whether the player is in jail. if in jail, can not collect rent
+    time_jail: consecutive turns spent in jail. reset to 0 when out of jail
     """
     id: int
     money: int
@@ -22,6 +23,7 @@ class Player:
     position: int
     is_bankrupt: bool
     in_jail: bool
+    time_jail: int
 
     def __init__(self, player_id: int) -> None:
         self.id = player_id
@@ -30,6 +32,7 @@ class Player:
         self.position = 0
         self.is_bankrupt = False
         self.in_jail = False
+        self.time_jail = 0
 
     def __str__(self) -> str:
         return (f'Player {self.id}')
@@ -47,6 +50,10 @@ class Player:
     
     def get_out_jail(self) -> None:
         self.in_jail = False
+        self.time_jail = 0
 
     def set_pos(self, pos: int) -> None:
         self.position = pos
+
+    def night_in_jail(self) -> None:
+        self.time_jail += 1

@@ -53,7 +53,7 @@ wat_wor = Utility(202, "Water Works", 150, (4, 10), 75, 75, ["Electric Company"]
 
 
 board = ['Go', med_ave, 'Community Chest', bal_ave, 'Income Tax', rea_rail, ori_ave, 'Chance', ver_ave, con_ave,
-         "Jail", stc_pla, ele_com, sta_ave, vir_ave, pen_rail, stj_pla, 'Community Chest', ten_ave, new_ave,
+         'Just Visiting', stc_pla, ele_com, sta_ave, vir_ave, pen_rail, stj_pla, 'Community Chest', ten_ave, new_ave,
          'Free Parking', ken_ave, 'Chance', ind_ave, ill_ave, bo_rail, atl_ave, ven_ave, wat_wor,
          mar_gar, 'Go To Jail', pac_ave, nor_ave, 'Community Chest', pen_ave, short_line, 'Chance', par_pla,
          'Luxury Tax', boardwalk]

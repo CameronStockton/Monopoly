@@ -57,7 +57,6 @@ def on_property(property: Property, player: Player) -> None:
         #Takes input from player. I think if we want to make AI to play this has to be changed
         buy = input('Type Y and press Enter to buy. To decline, type N and press Enter')
         if buy == 'Y':
-            print(f'{player} just bought {property}!')
             property.buy(player)
         else:
             print(f'You have chosen not to purchase this property. Thanks for staying at {property}.')
@@ -82,7 +81,6 @@ def on_station(station: Station, player: Player) -> None:
         print(f'{station} is unowned. Would you like to buy it?')
         buy = input('Type Y and press Enter to buy. To decline, type N and press Enter')
         if buy == 'Y':
-            print(f'{player} just bought {station}!')
             station.buy(player)
         else:
             print(f'You have chosen not to purchase this Railroad. Thanks for staying at {station}.')
@@ -119,8 +117,39 @@ def move(player: Player) -> bool:
     dice1, dice2 = random.randint(1, 6), random.randint(1, 6)
     print(f'{player} has rolled a {dice1} and {dice2}')
     new_pos = (curr_pos + dice1 + dice2) % 40
+    if (curr_pos + dice1 + dice2) > 40:
+        print(f"{player} has passed Go! They collected $200.")
+        player.money += 200
     player.set_pos(new_pos)
     if dice1 == dice2:
         return True
     else:
         return False
+    
+def on_go(player: Player) -> None:
+    """When moving onto Go, this is a free spot and the player also collects $200."""
+    print(f"{player} has passed Go! They collected $200.")
+    player.money += 200
+
+def on_inctax(player: Player) -> None:
+    """When moving onto Income Tax, the player pays $200."""
+    print(f"{player} has landed on Income Tax! They paid $200.")
+    player.money -= 200
+
+def on_luxtax(player: Player) -> None:
+    """When moving onto Luxury Tax, the player pays $75."""
+    print(f"{player} has landed on Luxury Tax! They paid $75.")
+    player.money -= 75
+
+def on_freepark(player: Player) -> None:
+    """Free space"""
+    print(f"{player} has landed on Free Parking!")
+
+def on_justvisit(player: Player) -> None:
+    """Just visiting. Not in Jail"""
+    print(f"{player} is visiting Jail!")
+    
+def on_gojail(player: Player) -> None:
+    """When moving onto Go To Jail, you go directly to jail. You also do not collect money from Go."""
+    player.send_to_jail()
+    player.set_pos(10)
